@@ -99,7 +99,7 @@ def TweetsMentions(api, user_name, user_mention):
         mention_tweet_list = []
         user = api.get_user(user_name)        
         status_count = user.statuses_count
-        print("\ntweet count:" + str(status_count))
+#        print("\ntweet count:" + str(status_count))
 #        file = open("shopify_tweets.txt","a+", encoding="utf-8")
         counter = 0
         for tweets in tweepy.Cursor(api.user_timeline, id = user_name, count=200).items():
