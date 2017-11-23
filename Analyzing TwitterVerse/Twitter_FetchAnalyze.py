@@ -27,19 +27,19 @@ def main():
        #Excluding the tweets whose authos it NOT CitronResearch
        user_name_citron = 'CitronResearch'
        max_retweet_count,popular_tweet =  GetMostRetwitted(api, user_name_citron)
-       print("\n\nMost popular tweet of user name:- " + user_name_citron + " is \n" + str(popular_tweet) + " \nRetweet count:- " +str(max_retweet_count))
+       print("\nMost popular tweet of user name:- " + user_name_citron + " is \n" + str(popular_tweet) + " \nRetweet count:- " +str(max_retweet_count))
        
        #1.3 Citron Research mentions in Shopifys tweets
        user_name = "Shopify"
        user_mention = "Citron Research"
        shopify_citron_menlist = TweetsMentions(api, user_name, user_mention)
-       print("shopify_citron_menlist" + str(shopify_citron_menlist)) 
+#       print("shopify_citron_menlist" + str(shopify_citron_menlist)) 
        
        #1.4 FTC mentions in Citron Research tweets
        user_name = user_name_citron
        user_mention = "FTC"
        citron_ftc_menlist = TweetsMentions(api, user_name, user_mention)
-       print("citron_ftc_menlist" + str(citron_ftc_menlist))
+#       print("citron_ftc_menlist" + str(citron_ftc_menlist))
               
        #1.5 Export tweet lists to csv
        import csv
@@ -96,19 +96,13 @@ def GetMostRetwitted(api, user_name):
   
 def TweetsMentions(api, user_name, user_mention):
     try:
-        mention_tweet_list = []
-        user = api.get_user(user_name)        
-        status_count = user.statuses_count
-        print("\ntweet count:" + str(status_count))
+        mention_tweet_list = []        
 #        file = open("shopify_tweets.txt","a+", encoding="utf-8")
-        counter = 0
         for tweets in tweepy.Cursor(api.user_timeline, id = user_name, count=200).items():
-            counter += 1
 #            file.write(tweets.text + "\n\n")
             if user_mention in tweets.text:
                  logger.debug("user mention found:" +  tweets.text)
-                 mention_tweet_list.append(tweets.text)
-        print("Counter:" + str(counter))        
+                 mention_tweet_list.append(tweets.text)       
 #        file.close()
         return mention_tweet_list
     except Exception as Ex:
